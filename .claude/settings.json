@@ -1,33 +1,8 @@
 {
   "permissions": {
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(**/.env)",
-      "Read(**/.env.*)",
-      "Edit(./.env)",
-      "Edit(./.env.*)",
-      "Write(./.env)",
-      "Write(./.env.*)",
-      "Edit(./scripts/legacy/**)",
-      "Bash(cat *.env*)",
-      "Bash(head *.env*)",
-      "Bash(tail *.env*)",
-      "Bash(less *.env*)",
-      "Bash(more *.env*)",
-      "Bash(grep *.env*)",
-      "Bash(rg *.env*)",
-      "Bash(sed *.env*)",
-      "Bash(awk *.env*)",
-      "Bash(cut *.env*)",
-      "Bash(sort *.env*)",
-      "Bash(cp *.env*)",
-      "Bash(mv *.env*)",
-      "Bash(source *.env*)",
-      "Bash(. *.env*)",
-      "Bash(env)",
-      "Bash(printenv*)"
-    ]
+    "deny": ["Read(./.env)", "Edit(scripts/legacy/**)"],
+    "allow": ["mcp__dossard__list_views"],
+    "ask": ["mcp__dossard__query_view"]
   },
   "hooks": {
     "PreToolUse": [
@@ -36,7 +11,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/garde.py\"",
+            "command": "python",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/garde.py"],
+            "onFailure": "block"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__dossard__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/journal_mcp.py"],
             "onFailure": "block"
           }
         ]
@@ -44,12 +31,25 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Write|Edit|Bash|PowerShell",
+        "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/formate.py\""
+            "command": "python",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/formate.py"]
           }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/tests_verts.py"]
+          },
+          { "type": "http", "url": "http://127.0.0.1:8765/hook" }
         ]
       }
     ]

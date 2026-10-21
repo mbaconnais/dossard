@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "dossard": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "scripts/mcp_dossard.py"
+      ],
+      "env": {}
+    }
+  }
+}
