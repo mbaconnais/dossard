@@ -8,6 +8,7 @@ from app.schemas import (
     CompetitionCreate,
     CompetitionDetail,
     CompetitionOut,
+    CompetitionStats,
     CompetitionStatus,
     CompetitionUpdate,
     EventCreate,
@@ -32,6 +33,15 @@ def create_competition(data: CompetitionCreate, conn: Conn) -> CompetitionOut:
 @router.get("/{competition_id}", response_model=CompetitionDetail)
 def get_competition(competition_id: int, conn: Conn) -> CompetitionDetail:
     return competitions.get_competition_detail(conn, competition_id)
+
+
+@router.get(
+    "/{competition_id}/stats",
+    response_model=CompetitionStats,
+    summary="Compter les épreuves, inscriptions confirmées et résultats d'une compétition",
+)
+def get_competition_stats(competition_id: int, conn: Conn) -> CompetitionStats:
+    return competitions.get_competition_stats(conn, competition_id)
 
 
 @router.patch("/{competition_id}", response_model=CompetitionOut)

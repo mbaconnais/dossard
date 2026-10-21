@@ -51,3 +51,7 @@ Points transverses :
 - Style des nouveaux endpoints : modèle de `routers/registrations.py` (noms en snake_case, annotations de type complètes — ruff impose `ANN`, `from __future__ import annotations`). `routers/results.py` contient des restes à ne pas imiter : fonctions en camelCase (`getRanking`, `exportCsv`), `HTTPException` avec `detail`, réponse `dict` non typée.
 - Les données d'exemple et de test sont synthétiques : aucune donnée personnelle réelle.
 - `CLAUDE.local.md` et `.claude/settings.local.json` sont personnels et ignorés par Git.
+
+## Revue en CI
+
+Toute revue de pull request faite en CI se termine par la ligne exacte `Revue CI — relu par Claude`.
