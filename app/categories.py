@@ -22,3 +22,7 @@ def age_category(birth_date: date, on: date | None = None) -> AgeCategory:
     if age <= 34:
         return AgeCategory.SENIOR
     return AgeCategory.MASTER
+
+
+def est_junior(birth_date: date, on: date | None = None) -> bool:
+    return age_category(birth_date, on=on) in (AgeCategory.U18, AgeCategory.U20)
