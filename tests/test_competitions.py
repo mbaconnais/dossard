@@ -50,4 +50,4 @@ def test_competition_rejects_invalid_transition(client, make_competition):
     response = client.patch(f"/competitions/{competition['id']}", json={"status": "finished"})
 
     assert response.status_code == 409
-    assert response.json()["error"]["code"] == "invalid_transition"
+    assert response.json()["error"]["code"] == "transition_invalide"
