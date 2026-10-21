@@ -31,6 +31,7 @@ Les erreurs de validation (422) gardent le format FastAPI par défaut.
 | GET | `/competitions` | Liste les compétitions triées par date, filtres optionnels `?status=draft\|open\|closed\|finished` et `?q=` (texte contenu dans le nom) | 200, 422 |
 | POST | `/competitions` | Crée une compétition (`name`, `date` obligatoires, `venue` optionnel), au statut `draft` | 201, 422 |
 | GET | `/competitions/{competition_id}` | Détail d'une compétition avec ses épreuves | 200, 404 |
+| GET | `/competitions/{competition_id}/stats` | Statistiques de la compétition : `events` (nombre d'épreuves), `confirmed_registrations` (inscriptions `confirmed`) et `results` (résultats des inscriptions `confirmed`) | 200, 404, 422 |
 | PATCH | `/competitions/{competition_id}` | Modifie `name`, `venue`, `date` et/ou `status` | 200, 404, 409, 422 |
 | POST | `/competitions/{competition_id}/events` | Ajoute une épreuve (`name`, `unit`, `category` optionnelle) | 201, 404, 422 |
 | GET | `/athletes` | Liste les athlètes triés par nom, filtre optionnel `?club=` (égalité exacte), pagination `?limit=` (1–100, défaut 50) et `?offset=` (≥ 0, défaut 0) appliquées après le filtre ; réponse = liste simple | 200, 422 |
