@@ -50,7 +50,7 @@ def create_registration(
     if event["competition_status"] != "open":
         raise ConflictError(
             "Les inscriptions ne sont pas ouvertes pour cette compétition",
-            code="registrations_closed",
+            code="registration_closed",
         )
 
     duplicate = conn.execute(

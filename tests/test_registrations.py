@@ -31,7 +31,7 @@ def test_register_refused_when_competition_not_open(
     )
 
     assert response.status_code == 409
-    assert response.json()["error"]["code"] == "registrations_closed"
+    assert response.json()["error"]["code"] == "registration_closed"
 
 
 def test_register_refused_with_expired_certificate(
